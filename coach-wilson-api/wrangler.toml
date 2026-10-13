@@ -1,0 +1,26 @@
+name = "coach-wilson-api"
+main = "src/index.js"
+compatibility_date = "2024-09-23"
+
+# D1 database (create with: wrangler d1 create coach-wilson-db)
+[[d1_databases]]
+binding = "DB"
+database_name = "coach-wilson-db"
+database_id = "2a08f802-cd2c-4995-8215-82e89f882b7e"
+
+# Media is on Cloudinary (no R2 / no credit card required).
+# Set these secrets once:
+#   npx wrangler secret put CLOUDINARY_CLOUD_NAME
+#   npx wrangler secret put CLOUDINARY_API_KEY
+#   npx wrangler secret put CLOUDINARY_API_SECRET
+
+# Secrets (wrangler secret put NAME):
+# JWT_SECRET
+# ADMIN_SECRET
+# GOOGLE_CLIENT_ID
+# GOOGLE_CLIENT_SECRET
+# CLOUDINARY_CLOUD_NAME
+# CLOUDINARY_API_KEY
+# CLOUDINARY_API_SECRET
+# Optional vars:
+# SITE_URL = "https://coach-wilson.workersdevao.workers.dev"
