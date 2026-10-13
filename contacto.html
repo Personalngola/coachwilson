@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Contacto - Coach Wilson</title>
+  <meta name="description" content="Quer começar a sua transformação? Envie a sua mensagem ao Coach Wilson. Luanda, Angola.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div class="announce" id="announce" role="status">
+    <span>Online · Resultados reais · <strong>Vagas limitadas</strong></span>
+  </div>
+
+  <header class="header scrolled" id="header">
+    <div class="header-inner">
+      <button class="hamburger" id="hamburger" aria-label="Menu" aria-expanded="false" aria-controls="drawer">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+
+      <a href="index.html" class="brand">
+        <span class="brand-name">Coach Wilson</span>
+        <span class="brand-tag">Wilson Benjamim</span>
+      </a>
+
+      <nav class="nav-desktop">
+        <a href="index.html#inicio">Início</a>
+        <a href="index.html#servicos">Serviços</a>
+        <a href="index.html#metodo">Método</a>
+        <a href="index.html#portfolio">Portfólio</a>
+        <a href="index.html#presencial">Presencial</a>
+        <a href="programas.html">Programas</a>
+        <a href="contacto.html" aria-current="page">Contacto</a>
+        <a href="login.html" data-i18n="nav-entrar">Entrar</a>
+        <button class="lang-toggle" id="langToggle">EN</button>
+      </nav>
+    </div>
+  </header>
+
+  <div class="drawer-overlay" id="drawerOverlay"></div>
+  <aside class="drawer" id="drawer">
+    <div class="drawer-top">
+      <span class="drawer-brand">Coach Wilson</span>
+      <button class="drawer-close" id="drawerClose" aria-label="Fechar">Fechar</button>
+    </div>
+    <nav class="drawer-nav">
+      <a href="index.html#inicio">Início</a>
+      <a href="index.html#servicos">Serviços</a>
+      <a href="index.html#metodo">Método</a>
+      <a href="index.html#portfolio">Portfólio</a>
+      <a href="index.html#presencial">Presencial</a>
+      <a href="programas.html">Programas</a>
+      <a href="contacto.html" aria-current="page">Contacto</a>
+      <a href="login.html" data-i18n="nav-entrar">Entrar</a>
+    </nav>
+    <div class="drawer-footer">
+      <p>Luanda, Angola</p>
+      <button class="lang-toggle" id="langToggleDrawer">EN</button>
+    </div>
+  </aside>
+
+  <section class="section auth-section">
+    <div class="container auth-container">
+      <div class="auth-card">
+        <span class="section-label">Contacto</span>
+        <h1 class="section-title">Quero começar</h1>
+        <p class="section-desc">Preenche o formulário e entraremos em contacto para agendar a tua avaliação.</p>
+
+        <form class="checkout-form auth-form" id="contactForm" novalidate>
+          <div class="form-group">
+            <label for="contactName">Nome</label>
+            <input type="text" id="contactName" name="name" required placeholder="O teu nome" autocomplete="name">
+          </div>
+
+          <div class="form-group">
+            <label for="contactEmail">Email</label>
+            <input type="email" id="contactEmail" name="email" required placeholder="email@exemplo.com" autocomplete="email">
+          </div>
+
+          <div class="form-group">
+            <label for="contactPhone">Telefone / WhatsApp</label>
+            <input type="tel" id="contactPhone" name="phone" required placeholder="+244 9XX XXX XXX" autocomplete="tel">
+          </div>
+
+          <div class="form-group">
+            <label for="contactMessage">Mensagem</label>
+            <textarea id="contactMessage" name="message" required rows="4" placeholder="Conta-nos o teu objectivo (emagrecimento, hipertrofia, saúde…)"></textarea>
+          </div>
+
+          <p class="form-error" id="contactError" hidden></p>
+
+          <button type="submit" class="btn btn-primary btn-block" id="contactBtn">
+            Enviar mensagem
+          </button>
+
+          <p class="form-note">Respondemos normalmente em 24–48 horas. Os teus dados são tratados com confidencialidade.</p>
+        </form>
+
+        <div class="checkout-success" id="contactSuccess" hidden>
+          <div class="success-card">
+            <h2 class="section-title" style="font-size:1.35rem;margin-bottom:0.5rem;">Mensagem enviada</h2>
+            <p class="section-desc" style="margin-bottom:1.25rem;">Obrigado. Recebemos o teu pedido e entraremos em contacto em breve.</p>
+            <a href="index.html" class="btn btn-outline">Voltar ao início</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-inner">
+        <div>
+          <div class="footer-brand">Coach Wilson</div>
+          <div class="footer-tag">Alta Performance · Estética · Saúde · Resultados</div>
+        </div>
+        <div class="footer-socials">
+          <a href="https://www.instagram.com/coach_wilsonfit/" target="_blank" rel="noopener">Instagram</a>
+          <a href="https://www.facebook.com/wilsonbenjamimfitness" target="_blank" rel="noopener">Facebook</a>
+        </div>
+        <p class="footer-location">Luanda, Angola</p>
+        <p class="footer-copy">© 2026 Coach Wilson. Todos os direitos reservados.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+  <script src="js/contact.js"></script>
+</body>
+</html>

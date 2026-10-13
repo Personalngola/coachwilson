@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Admin - Coach Wilson</title>
+  <meta name="robots" content="noindex, nofollow">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="page-inner">
+
+  <div class="announce" id="announce">
+    <span>Área privada · Admin</span>
+  </div>
+
+  <header class="header scrolled" id="header">
+    <div class="header-inner">
+      <a href="index.html" class="brand">
+        <span class="brand-name">Coach Wilson</span>
+        <span class="brand-tag">Admin</span>
+      </a>
+      <nav class="nav-desktop">
+        <a href="index.html">Site</a>
+        <a href="conta.html">Conta</a>
+      </nav>
+    </div>
+  </header>
+
+  <section class="section auth-section" style="align-items: flex-start;">
+    <div class="container" style="max-width: 900px;">
+
+      <!-- Login gate -->
+      <div id="adminGate">
+        <span class="section-label">Admin</span>
+        <h1 class="section-title">Acesso restrito</h1>
+        <p class="section-desc" style="margin-bottom: 1.75rem;">
+          Introduza a password de administrador.
+        </p>
+        <form class="checkout-form auth-form" id="adminLoginForm" style="max-width: 400px;">
+          <div class="form-group">
+            <label for="adminSecret">Password admin</label>
+            <div class="password-field">
+              <input type="password" id="adminSecret" required placeholder="••••••••" autocomplete="current-password">
+              <button type="button" class="password-toggle" data-target="adminSecret" aria-label="Mostrar password" title="Mostrar password">
+                <svg class="icon-eye" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+                  <circle cx="12" cy="12" r="3"/>
+                </svg>
+                <svg class="icon-eye-off" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" hidden>
+                  <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/>
+                  <line x1="1" y1="1" x2="23" y2="23"/>
+                </svg>
+              </button>
+            </div>
+          </div>
+          <p class="form-error" id="adminGateError" hidden></p>
+          <button type="submit" class="btn btn-primary btn-block">Entrar</button>
+        </form>
+      </div>
+
+      <!-- Dashboard -->
+      <div id="adminPanel" hidden>
+        <div class="conta-header">
+          <div>
+            <span class="section-label">Admin</span>
+            <h1 class="section-title">Painel</h1>
+            <p class="section-desc" style="margin-bottom: 0;">
+              Utilizadores e conteúdo do site
+            </p>
+          </div>
+          <div class="conta-actions">
+            <button type="button" class="btn btn-outline" id="adminRefresh" style="min-height: 40px; padding: 0.5rem 1.1rem; font-size: 0.75rem;">
+              Actualizar
+            </button>
+            <button type="button" class="btn btn-outline" id="adminLogout" style="min-height: 40px; padding: 0.5rem 1.1rem; font-size: 0.75rem;">
+              Sair
+            </button>
+          </div>
+        </div>
+
+        <div class="admin-tabs" role="tablist">
+          <button type="button" class="admin-tab is-active" data-tab="users" role="tab" aria-selected="true">Utilizadores</button>
+          <button type="button" class="admin-tab" data-tab="content" role="tab" aria-selected="false">Conteúdo do site</button>
+        </div>
+
+        <p class="form-error" id="adminError" hidden style="margin-bottom: 1rem;"></p>
+
+        <!-- Users tab -->
+        <div id="adminTabUsers" class="admin-tab-panel">
+          <p class="section-desc" style="margin-bottom: 1rem;">
+            Total: <strong id="adminTotal" style="color: var(--gold);">0</strong>
+          </p>
+
+          <div class="admin-search-wrap">
+            <label class="admin-search-label" for="adminSearch">Pesquisar</label>
+            <div class="admin-search">
+              <svg class="admin-search-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true">
+                <circle cx="11" cy="11" r="7"/>
+                <path d="M20 20l-3.5-3.5"/>
+              </svg>
+              <input type="search" id="adminSearch" class="admin-search-input" placeholder="Nome, email ou plano…" autocomplete="off" spellcheck="false">
+              <button type="button" class="admin-search-clear" id="adminSearchClear" hidden aria-label="Limpar pesquisa">×</button>
+            </div>
+          </div>
+
+          <div class="admin-table-wrap" id="adminTableWrap">
+            <table class="admin-table" id="adminTable">
+              <thead>
+                <tr>
+                  <th>Nome</th>
+                  <th>Email</th>
+                  <th>Plano</th>
+                  <th>Registo</th>
+                  <th>Acção</th>
+                </tr>
+              </thead>
+              <tbody id="adminTableBody">
+              </tbody>
+            </table>
+          </div>
+
+          <p id="adminEmpty" class="section-desc" hidden style="margin-top: 1.5rem;">
+            Ainda não há utilizadores registados.
+          </p>
+        </div>
+
+        <!-- Content tab -->
+        <div id="adminTabContent" class="admin-tab-panel" hidden>
+          <p class="section-desc" style="margin-bottom: 1.25rem;">
+            Altere textos e preços sem código. Depois de guardar, o site público actualiza em alguns segundos.
+            <span id="contentUpdatedAt" style="display:block;margin-top:0.35rem;opacity:0.7;font-size:0.8rem;"></span>
+          </p>
+
+          <form id="contentForm" class="checkout-form auth-form" style="max-width: none;">
+            <h3 class="admin-content-heading">Barra superior & Hero</h3>
+            <div class="form-group">
+              <label for="cmsAnnounce">Barra de anúncio (HTML permitido: &lt;strong&gt;)</label>
+              <input type="text" id="cmsAnnounce" name="announce" placeholder="Programas online…">
+            </div>
+            <div class="form-group">
+              <label for="cmsHeroBadge">Hero — badge</label>
+              <input type="text" id="cmsHeroBadge" name="hero_badge">
+            </div>
+            <div class="form-group">
+              <label for="cmsHeroTitle">Hero — título</label>
+              <textarea id="cmsHeroTitle" name="hero_title" rows="2"></textarea>
+            </div>
+            <div class="form-group">
+              <label for="cmsCtaStart">Botão principal (ex: Quero começar)</label>
+              <input type="text" id="cmsCtaStart" name="cta_start">
+            </div>
+            <div class="form-group">
+              <label for="cmsCtaMethod">Botão secundário (ex: O Método)</label>
+              <input type="text" id="cmsCtaMethod" name="cta_method">
+            </div>
+            <div class="form-group">
+              <label for="cmsCtaStartArrow">Botão final CTA (ex: Quero começar →)</label>
+              <input type="text" id="cmsCtaStartArrow" name="cta_start_arrow">
+            </div>
+
+            <h3 class="admin-content-heading">Serviços</h3>
+            <div class="form-group">
+              <label for="cmsServicosTitle">Título da secção</label>
+              <input type="text" id="cmsServicosTitle">
+            </div>
+            <div class="admin-pkg-grid">
+              <div class="admin-pkg-card">
+                <h4>Serviço 1</h4>
+                <div class="form-group"><label>Título</label><input type="text" id="cmsS1Title"></div>
+                <div class="form-group"><label>Descrição</label><input type="text" id="cmsS1Desc"></div>
+              </div>
+              <div class="admin-pkg-card">
+                <h4>Serviço 2</h4>
+                <div class="form-group"><label>Título</label><input type="text" id="cmsS2Title"></div>
+                <div class="form-group"><label>Descrição</label><input type="text" id="cmsS2Desc"></div>
+              </div>
+              <div class="admin-pkg-card">
+                <h4>Serviço 3</h4>
+                <div class="form-group"><label>Título</label><input type="text" id="cmsS3Title"></div>
+                <div class="form-group"><label>Descrição</label><input type="text" id="cmsS3Desc"></div>
+              </div>
+              <div class="admin-pkg-card">
+                <h4>Serviço 4</h4>
+                <div class="form-group"><label>Título</label><input type="text" id="cmsS4Title"></div>
+                <div class="form-group"><label>Descrição</label><input type="text" id="cmsS4Desc"></div>
+              </div>
+              <div class="admin-pkg-card">
+                <h4>Serviço 5</h4>
+                <div class="form-group"><label>Título</label><input type="text" id="cmsS5Title"></div>
+                <div class="form-group"><label>Descrição</label><input type="text" id="cmsS5Desc"></div>
+              </div>
+            </div>
+
+            <h3 class="admin-content-heading">Método / Diferencial</h3>
+            <div class="form-group"><label for="cmsDiffLabel">Label</label><input type="text" id="cmsDiffLabel"></div>
+            <div class="form-group"><label for="cmsDiffTitle">Título</label><input type="text" id="cmsDiffTitle"></div>
+            <div class="form-group"><label for="cmsDiffDesc">Descrição</label><textarea id="cmsDiffDesc" rows="2"></textarea></div>
+            <div class="admin-pkg-grid">
+              <div class="admin-pkg-card">
+                <h4>Ponto 01</h4>
+                <div class="form-group"><label>Título</label><input type="text" id="cmsD1Title"></div>
+                <div class="form-group"><label>Descrição</label><input type="text" id="cmsD1Desc"></div>
+              </div>
+              <div class="admin-pkg-card">
+                <h4>Ponto 02</h4>
+                <div class="form-group"><label>Título</label><input type="text" id="cmsD2Title"></div>
+                <div class="form-group"><label>Descrição</label><input type="text" id="cmsD2Desc"></div>
+              </div>
+              <div class="admin-pkg-card">
+                <h4>Ponto 03</h4>
+                <div class="form-group"><label>Título</label><input type="text" id="cmsD3Title"></div>
+                <div class="form-group"><label>Descrição</label><input type="text" id="cmsD3Desc"></div>
+              </div>
+              <div class="admin-pkg-card">
+                <h4>Ponto 04</h4>
+                <div class="form-group"><label>Título</label><input type="text" id="cmsD4Title"></div>
+                <div class="form-group"><label>Descrição</label><input type="text" id="cmsD4Desc"></div>
+              </div>
+            </div>
+
+            <h3 class="admin-content-heading">Portfólio</h3>
+            <div class="form-group"><label for="cmsPortTitle">Título</label><input type="text" id="cmsPortTitle"></div>
+
+            <h3 class="admin-content-heading">Presencial</h3>
+            <div class="form-group"><label for="cmsPresTitle">Título</label><input type="text" id="cmsPresTitle"></div>
+            <div class="form-group"><label for="cmsPresDesc">Descrição</label><textarea id="cmsPresDesc" rows="2"></textarea></div>
+            <div class="form-group"><label for="cmsSobConsulta">Etiqueta (ex: Sob consulta)</label><input type="text" id="cmsSobConsulta"></div>
+            <div class="admin-pkg-grid">
+              <div class="admin-pkg-card">
+                <h4>Item 1</h4>
+                <div class="form-group"><label>Título</label><input type="text" id="cmsP1Title"></div>
+                <div class="form-group"><label>Descrição</label><input type="text" id="cmsP1Desc"></div>
+              </div>
+              <div class="admin-pkg-card">
+                <h4>Item 2</h4>
+                <div class="form-group"><label>Título</label><input type="text" id="cmsP2Title"></div>
+                <div class="form-group"><label>Descrição</label><input type="text" id="cmsP2Desc"></div>
+              </div>
+              <div class="admin-pkg-card">
+                <h4>Item 3</h4>
+                <div class="form-group"><label>Título</label><input type="text" id="cmsP3Title"></div>
+                <div class="form-group"><label>Descrição</label><input type="text" id="cmsP3Desc"></div>
+              </div>
+              <div class="admin-pkg-card">
+                <h4>Item 4</h4>
+                <div class="form-group"><label>Título</label><input type="text" id="cmsP4Title"></div>
+                <div class="form-group"><label>Descrição</label><input type="text" id="cmsP4Desc"></div>
+              </div>
+            </div>
+
+            <h3 class="admin-content-heading">Citação</h3>
+            <div class="form-group"><label for="cmsQuoteText">Texto da citação</label><textarea id="cmsQuoteText" rows="3"></textarea></div>
+            <div class="form-group"><label for="cmsQuoteAuthor">Autor</label><input type="text" id="cmsQuoteAuthor"></div>
+
+            <h3 class="admin-content-heading">Secção de pacotes</h3>
+            <div class="form-group">
+              <label for="cmsPackLabel">Label</label>
+              <input type="text" id="cmsPackLabel" name="pack_label">
+            </div>
+            <div class="form-group">
+              <label for="cmsPackTitle">Título</label>
+              <input type="text" id="cmsPackTitle" name="pack_title">
+            </div>
+            <div class="form-group">
+              <label for="cmsPackDesc">Descrição</label>
+              <textarea id="cmsPackDesc" name="pack_desc" rows="2"></textarea>
+            </div>
+            <div class="form-group">
+              <label for="cmsPopularBadge">Badge “Popular”</label>
+              <input type="text" id="cmsPopularBadge">
+            </div>
+
+            <div class="admin-pkg-grid">
+              <div class="admin-pkg-card" data-pkg="bronze">
+                <h4>Bronze</h4>
+                <div class="form-group">
+                  <label>Preço (número)</label>
+                  <input type="text" id="cmsBronzePrice" placeholder="25.000">
+                </div>
+                <div class="form-group">
+                  <label>Moeda / período</label>
+                  <input type="text" id="cmsBronzeCurrency" placeholder="Kz / mês">
+                </div>
+                <div class="form-group">
+                  <label>Descrição</label>
+                  <input type="text" id="cmsBronzeDesc">
+                </div>
+                <div class="form-group">
+                  <label>Features (uma por linha)</label>
+                  <textarea id="cmsBronzeFeatures" rows="6"></textarea>
+                </div>
+              </div>
+              <div class="admin-pkg-card" data-pkg="prata">
+                <h4>Prata</h4>
+                <div class="form-group">
+                  <label>Preço (número)</label>
+                  <input type="text" id="cmsPrataPrice" placeholder="60.000">
+                </div>
+                <div class="form-group">
+                  <label>Moeda / período</label>
+                  <input type="text" id="cmsPrataCurrency" placeholder="Kz / mês">
+                </div>
+                <div class="form-group">
+                  <label>Descrição</label>
+                  <input type="text" id="cmsPrataDesc">
+                </div>
+                <div class="form-group">
+                  <label>Features (uma por linha)</label>
+                  <textarea id="cmsPrataFeatures" rows="6"></textarea>
+                </div>
+              </div>
+              <div class="admin-pkg-card" data-pkg="ouro">
+                <h4>Ouro</h4>
+                <div class="form-group">
+                  <label>Preço (número)</label>
+                  <input type="text" id="cmsOuroPrice" placeholder="120.000">
+                </div>
+                <div class="form-group">
+                  <label>Moeda / período</label>
+                  <input type="text" id="cmsOuroCurrency" placeholder="Kz / mês">
+                </div>
+                <div class="form-group">
+                  <label>Descrição</label>
+                  <input type="text" id="cmsOuroDesc">
+                </div>
+                <div class="form-group">
+                  <label>Features (uma por linha)</label>
+                  <textarea id="cmsOuroFeatures" rows="8"></textarea>
+                </div>
+              </div>
+            </div>
+
+            <h3 class="admin-content-heading">Imagens &amp; Vídeos</h3>
+            <p class="section-desc" style="margin-bottom: 1rem; font-size: 0.85rem;">
+              Envie ficheiros para Cloudinary (JPG/PNG/WebP até 8&nbsp;MB, MP4 até 40&nbsp;MB). Depois de carregar, clique em <strong>Guardar conteúdo</strong> para publicar no site.
+              URL vazio = ficheiros estáticos por omissão.
+            </p>
+            <div class="admin-pkg-grid" id="cmsMediaGrid">
+              <div class="admin-pkg-card"><h4>Hero (imagem)</h4><div class="form-group"><label>URL</label><input type="text" id="cmsMedia_hero_image" placeholder="(omissão)"></div><input type="file" id="cmsFile_hero_image" accept="image/jpeg,image/png,image/webp" hidden><button type="button" class="btn btn-outline cms-upload-btn" data-slot="hero_image" style="min-height:36px;font-size:0.7rem;width:100%;">Carregar</button><p class="cms-upload-status" id="cmsStatus_hero_image" style="font-size:0.75rem;margin-top:0.5rem;opacity:0.8;"></p></div>
+              <div class="admin-pkg-card"><h4>Hero WebP</h4><div class="form-group"><label>URL</label><input type="text" id="cmsMedia_hero_image_webp" placeholder="(omissão)"></div><input type="file" id="cmsFile_hero_image_webp" accept="image/webp" hidden><button type="button" class="btn btn-outline cms-upload-btn" data-slot="hero_image_webp" style="min-height:36px;font-size:0.7rem;width:100%;">Carregar</button><p class="cms-upload-status" id="cmsStatus_hero_image_webp" style="font-size:0.75rem;margin-top:0.5rem;opacity:0.8;"></p></div>
+              <div class="admin-pkg-card"><h4>Vídeo treino</h4><div class="form-group"><label>URL</label><input type="text" id="cmsMedia_training_video" placeholder="(omissão)"></div><input type="file" id="cmsFile_training_video" accept="video/mp4" hidden><button type="button" class="btn btn-outline cms-upload-btn" data-slot="training_video" style="min-height:36px;font-size:0.7rem;width:100%;">Carregar</button><p class="cms-upload-status" id="cmsStatus_training_video" style="font-size:0.75rem;margin-top:0.5rem;opacity:0.8;"></p></div>
+              <div class="admin-pkg-card"><h4>Poster treino</h4><div class="form-group"><label>URL</label><input type="text" id="cmsMedia_training_poster" placeholder="(omissão)"></div><input type="file" id="cmsFile_training_poster" accept="image/jpeg,image/png,image/webp" hidden><button type="button" class="btn btn-outline cms-upload-btn" data-slot="training_poster" style="min-height:36px;font-size:0.7rem;width:100%;">Carregar</button><p class="cms-upload-status" id="cmsStatus_training_poster" style="font-size:0.75rem;margin-top:0.5rem;opacity:0.8;"></p></div>
+              <div class="admin-pkg-card"><h4>Imagem citação</h4><div class="form-group"><label>URL</label><input type="text" id="cmsMedia_quote_image" placeholder="(omissão)"></div><input type="file" id="cmsFile_quote_image" accept="image/jpeg,image/png,image/webp" hidden><button type="button" class="btn btn-outline cms-upload-btn" data-slot="quote_image" style="min-height:36px;font-size:0.7rem;width:100%;">Carregar</button><p class="cms-upload-status" id="cmsStatus_quote_image" style="font-size:0.75rem;margin-top:0.5rem;opacity:0.8;"></p></div>
+              <div class="admin-pkg-card"><h4>Imagem CTA</h4><div class="form-group"><label>URL</label><input type="text" id="cmsMedia_cta_image" placeholder="(omissão)"></div><input type="file" id="cmsFile_cta_image" accept="image/jpeg,image/png,image/webp" hidden><button type="button" class="btn btn-outline cms-upload-btn" data-slot="cta_image" style="min-height:36px;font-size:0.7rem;width:100%;">Carregar</button><p class="cms-upload-status" id="cmsStatus_cta_image" style="font-size:0.75rem;margin-top:0.5rem;opacity:0.8;"></p></div>
+              <div class="admin-pkg-card"><h4>Carousel 1</h4><div class="form-group"><label>URL</label><input type="text" id="cmsMedia_carousel_1" placeholder="(omissão)"></div><input type="file" id="cmsFile_carousel_1" accept="video/mp4" hidden><button type="button" class="btn btn-outline cms-upload-btn" data-slot="carousel_1" style="min-height:36px;font-size:0.7rem;width:100%;">Carregar</button><p class="cms-upload-status" id="cmsStatus_carousel_1" style="font-size:0.75rem;margin-top:0.5rem;opacity:0.8;"></p></div>
+              <div class="admin-pkg-card"><h4>Carousel 2</h4><div class="form-group"><label>URL</label><input type="text" id="cmsMedia_carousel_2" placeholder="(omissão)"></div><input type="file" id="cmsFile_carousel_2" accept="video/mp4" hidden><button type="button" class="btn btn-outline cms-upload-btn" data-slot="carousel_2" style="min-height:36px;font-size:0.7rem;width:100%;">Carregar</button><p class="cms-upload-status" id="cmsStatus_carousel_2" style="font-size:0.75rem;margin-top:0.5rem;opacity:0.8;"></p></div>
+              <div class="admin-pkg-card"><h4>Carousel 3</h4><div class="form-group"><label>URL</label><input type="text" id="cmsMedia_carousel_3" placeholder="(omissão)"></div><input type="file" id="cmsFile_carousel_3" accept="video/mp4" hidden><button type="button" class="btn btn-outline cms-upload-btn" data-slot="carousel_3" style="min-height:36px;font-size:0.7rem;width:100%;">Carregar</button><p class="cms-upload-status" id="cmsStatus_carousel_3" style="font-size:0.75rem;margin-top:0.5rem;opacity:0.8;"></p></div>
+              <div class="admin-pkg-card"><h4>Carousel 4</h4><div class="form-group"><label>URL</label><input type="text" id="cmsMedia_carousel_4" placeholder="(omissão)"></div><input type="file" id="cmsFile_carousel_4" accept="video/mp4" hidden><button type="button" class="btn btn-outline cms-upload-btn" data-slot="carousel_4" style="min-height:36px;font-size:0.7rem;width:100%;">Carregar</button><p class="cms-upload-status" id="cmsStatus_carousel_4" style="font-size:0.75rem;margin-top:0.5rem;opacity:0.8;"></p></div>
+              <div class="admin-pkg-card"><h4>Carousel 5</h4><div class="form-group"><label>URL</label><input type="text" id="cmsMedia_carousel_5" placeholder="(omissão)"></div><input type="file" id="cmsFile_carousel_5" accept="video/mp4" hidden><button type="button" class="btn btn-outline cms-upload-btn" data-slot="carousel_5" style="min-height:36px;font-size:0.7rem;width:100%;">Carregar</button><p class="cms-upload-status" id="cmsStatus_carousel_5" style="font-size:0.75rem;margin-top:0.5rem;opacity:0.8;"></p></div>
+            </div>
+
+            <h3 class="admin-content-heading">Pagamento &amp; CTA final</h3>
+            <div class="form-group"><label for="cmsPayTitle">Título pagamento</label><input type="text" id="cmsPayTitle"></div>
+            <div class="form-group"><label for="cmsPayNote">Nota de pagamento</label><input type="text" id="cmsPayNote"></div>
+            <div class="form-group"><label for="cmsFinalTitle">CTA final — título</label><input type="text" id="cmsFinalTitle"></div>
+            <div class="form-group"><label for="cmsFinalDesc">CTA final — descrição</label><textarea id="cmsFinalDesc" rows="2"></textarea></div>
+
+            <h3 class="admin-content-heading">Rodapé</h3>
+            <div class="form-group"><label for="cmsFooterTag">Tagline</label><input type="text" id="cmsFooterTag"></div>
+            <div class="form-group"><label for="cmsFooterLocation">Localização</label><input type="text" id="cmsFooterLocation"></div>
+
+            <p class="form-error" id="contentError" hidden></p>
+            <p class="form-success" id="contentSuccess" hidden style="color: var(--gold); margin-bottom: 1rem;"></p>
+
+            <button type="submit" class="btn btn-primary" id="contentSaveBtn">Guardar conteúdo</button>
+          </form>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-inner">
+        <div>
+          <div class="footer-brand">Coach Wilson</div>
+          <div class="footer-tag">Admin · Acesso restrito</div>
+        </div>
+        <p class="footer-location">Luanda, Angola</p>
+      </div>
+    </div>
+  </footer>
+
+
+  <!-- Delete confirm modal -->
+  <div class="admin-modal" id="adminDeleteModal" hidden>
+    <div class="admin-modal-backdrop" data-close-modal></div>
+    <div class="admin-modal-card" role="dialog" aria-modal="true" aria-labelledby="adminDeleteTitle">
+      <div class="admin-modal-icon" aria-hidden="true">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+          <path d="M3 6h18M8 6V4h8v2M19 6l-1 14H6L5 6"/>
+        </svg>
+      </div>
+      <h2 class="admin-modal-title" id="adminDeleteTitle">Apagar conta</h2>
+      <p class="admin-modal-text">
+        Vais apagar permanentemente a conta de
+        <strong id="adminDeleteName"></strong>
+        <span class="admin-modal-email" id="adminDeleteEmail"></span>
+      </p>
+      <p class="admin-modal-note">Esta acção não pode ser desfeita.</p>
+      <div class="admin-modal-actions">
+        <button type="button" class="btn btn-outline admin-modal-cancel" id="adminDeleteCancel" data-close-modal>Cancelar</button>
+        <button type="button" class="btn admin-modal-confirm" id="adminDeleteConfirm">Apagar</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Restore admin session immediately (before admin.js) to avoid login flash on reload
+    try {
+      if (sessionStorage.getItem("cw_admin_secret")) {
+        var g = document.getElementById("adminGate");
+        var p = document.getElementById("adminPanel");
+        if (g) g.hidden = true;
+        if (p) p.hidden = false;
+      }
+    } catch (e) {}
+  </script>
+  <script src="js/admin.js"></script>
+</body>
+</html>
