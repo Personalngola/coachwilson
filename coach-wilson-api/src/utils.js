@@ -135,18 +135,18 @@ export async function verifyJWT(token, secret) {
 
 export function setAuthCookie(token, isSecure = true, maxAge = 60 * 60 * 24 * 7) {
   // HttpOnly. Secure only on HTTPS.
-  // Domain=.workersdevao.workers.dev so cookie is shared between site + API subdomains.
+  // Domain=.personalngola.workers.dev so cookie is shared between site + API subdomains.
   // SameSite=None + Secure required for cross-subdomain fetch with credentials.
   const secure = isSecure ? "; Secure" : "";
   const sameSite = isSecure ? "None" : "Lax";
-  const domain = isSecure ? "; Domain=.workersdevao.workers.dev" : "";
+  const domain = isSecure ? "; Domain=.personalngola.workers.dev" : "";
   return `token=${token}; HttpOnly${secure}; SameSite=${sameSite}; Path=/${domain}; Max-Age=${maxAge}`;
 }
 
 export function clearAuthCookie(isSecure = true) {
   const secure = isSecure ? "; Secure" : "";
   const sameSite = isSecure ? "None" : "Lax";
-  const domain = isSecure ? "; Domain=.workersdevao.workers.dev" : "";
+  const domain = isSecure ? "; Domain=.personalngola.workers.dev" : "";
   return `token=; HttpOnly${secure}; SameSite=${sameSite}; Path=/${domain}; Max-Age=0`;
 }
 
@@ -188,7 +188,8 @@ export function json(data, status = 200, extraHeaders = {}) {
 export function corsHeaders(origin) {
   // Production site + common local servers
   const allowed = [
-    "https://coach-wilson.workersdevao.workers.dev",
+    "https://coachwilson.personalngola.workers.dev",
+    "https://coachwilson-api.personalngola.workers.dev",
     "http://localhost:5500",
     "http://127.0.0.1:5500",
     "http://localhost:3000",
@@ -207,7 +208,7 @@ export function corsHeaders(origin) {
       : allowed[0];
   return {
     "Access-Control-Allow-Origin": finalOrigin,
-    "Access-Control-Allow-Methods": "GET, POST, PUT, OPTIONS",
+    "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
     "Access-Control-Allow-Headers": "Content-Type, X-Admin-Secret",
     "Access-Control-Allow-Credentials": "true",
   };

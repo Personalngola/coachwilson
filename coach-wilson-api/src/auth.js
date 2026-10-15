@@ -185,7 +185,7 @@ function b64url(bytes) {
 }
 
 function siteOrigin(env) {
-  return (env.SITE_URL || "https://coach-wilson.workersdevao.workers.dev").replace(/\/$/, "");
+  return (env.SITE_URL || "https://coachwilson.personalngola.workers.dev").replace(/\/$/, "");
 }
 
 function apiOrigin(request) {
@@ -224,7 +224,7 @@ export async function handleGoogleStart(request, env) {
 
   const secure = isRequestSecure(request);
   const sameSite = secure ? "None" : "Lax";
-  const domain = secure ? "; Domain=.workersdevao.workers.dev" : "";
+  const domain = secure ? "; Domain=.personalngola.workers.dev" : "";
   const stateCookie = `g_oauth_state=${state}; HttpOnly; Path=/; Max-Age=600; SameSite=${sameSite}${secure ? "; Secure" : ""}${domain}`;
 
   return new Response(null, {
@@ -375,7 +375,7 @@ export async function handleGoogleCallback(request, env) {
   const authCookie = setAuthCookie(jwt, secure);
   // Clear oauth state cookie
   const sameSite = secure ? "None" : "Lax";
-  const domain = secure ? "; Domain=.workersdevao.workers.dev" : "";
+  const domain = secure ? "; Domain=.personalngola.workers.dev" : "";
   const clearState = `g_oauth_state=; HttpOnly; Path=/; Max-Age=0; SameSite=${sameSite}${secure ? "; Secure" : ""}${domain}`;
 
   // Multiple Set-Cookie: use Headers

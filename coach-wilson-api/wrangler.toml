@@ -1,26 +1,25 @@
-name = "coach-wilson-api"
+name = "coachwilson-api"
 main = "src/index.js"
 compatibility_date = "2024-09-23"
+workers_dev = true
 
-# D1 database (create with: wrangler d1 create coach-wilson-db)
+# D1 database — create on the NEW account (personalngola):
+#   npx wrangler d1 create coach-wilson-db
+# Then paste the database_id below and run schema.
 [[d1_databases]]
 binding = "DB"
 database_name = "coach-wilson-db"
-database_id = "2a08f802-cd2c-4995-8215-82e89f882b7e"
+database_id = "REPLACE_AFTER_D1_CREATE"
 
 # Media is on Cloudinary (no R2 / no credit card required).
-# Set these secrets once:
+# Secrets (run once after login to personalngola account):
+#   npx wrangler secret put JWT_SECRET
+#   npx wrangler secret put ADMIN_SECRET
 #   npx wrangler secret put CLOUDINARY_CLOUD_NAME
 #   npx wrangler secret put CLOUDINARY_API_KEY
 #   npx wrangler secret put CLOUDINARY_API_SECRET
-
-# Secrets (wrangler secret put NAME):
-# JWT_SECRET
-# ADMIN_SECRET
-# GOOGLE_CLIENT_ID
-# GOOGLE_CLIENT_SECRET
-# CLOUDINARY_CLOUD_NAME
-# CLOUDINARY_API_KEY
-# CLOUDINARY_API_SECRET
-# Optional vars:
-# SITE_URL = "https://coach-wilson.workersdevao.workers.dev"
+# Optional:
+#   npx wrangler secret put GOOGLE_CLIENT_ID
+#   npx wrangler secret put GOOGLE_CLIENT_SECRET
+#   npx wrangler secret put SITE_URL
+#     → https://coachwilson.personalngola.workers.dev
