@@ -9,7 +9,7 @@ workers_dev = true
 [[d1_databases]]
 binding = "DB"
 database_name = "coach-wilson-db"
-database_id = "REPLACE_AFTER_D1_CREATE"
+database_id = "06a60b39-1024-4bf5-a7dc-086e0761d425"
 
 # Media is on Cloudinary (no R2 / no credit card required).
 # Secrets (run once after login to personalngola account):
